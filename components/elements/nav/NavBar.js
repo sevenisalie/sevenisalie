@@ -56,8 +56,10 @@ const NavBar = () => {
                     <Link href="/">
                         <NavLink>Home</NavLink>
                     </Link>
+                    <Link href={"/blog"}>
+                        <NavLink >Blog</NavLink>
+                    </Link>
 
-                        <NavLink>Blog</NavLink>
 
                         <NavLink>NFTs</NavLink>
 
