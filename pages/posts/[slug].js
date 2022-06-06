@@ -123,10 +123,20 @@ const AuthorImage = styled(HeaderImage)`
     }
 `
 
+const ContentContainerOuter = styled(HeaderTitleTextContainer)`
+    grid-area: content;
+    color: rgba(12, 12, 12, 0.69);
+    padding: 2em;
+
+    @media (max-width: 768px) {
+        padding: 1em;
+    }
+`
 const ContentContainer = styled(HeaderTitleTextContainer)`
     grid-area: content;
-    color: rgba(242, 242, 242, 0.69);
-    padding: 2em;
+    color: rgba(12, 12, 12, 0.69);
+    padding: 4em;
+    background: rgba(247, 244, 196, 1);
     @media (max-width: 768px) {
         padding: 1em;
     }
@@ -294,11 +304,13 @@ const BlogArticle = ({post}) => {
                     <HeaderImage src={post.thumbnail.url} />
                 </FlexRow>
             </HeaderImageContainer>
+            <ContentContainerOuter>
             <ContentContainer>
                 <article dangerouslySetInnerHTML={{__html: post.content.html}} >
 
                 </article>
             </ContentContainer>
+            </ContentContainerOuter>
         </HeaderContainer>
         </PageContainer>
 

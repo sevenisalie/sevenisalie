@@ -19,6 +19,34 @@ a {
   text-decoration: none;
 }
 
+article {
+  display: flex;
+  flex-direction: column;
+}
+
+article pre {
+  display: block;
+}
+article img {
+  width: auto;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+article code {
+  color: rgba(242, 242, 242, 0.89);
+  background-color: rgba(36, 33, 39, 1);
+  border: 1px solid #999;
+  border-radius: 8px;
+  padding: 1em;
+  display: flex;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  max-width: 100%;
+  min-width: 100px;
+
+}
+
 * {
   box-sizing: border-box;
 }

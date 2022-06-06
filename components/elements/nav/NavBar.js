@@ -2,6 +2,8 @@ import React from 'react'
 import styled from "styled-components"
 import Link from "next/link"
 
+import ConnectButton from "../connect/ConnectButton"
+
 const NavContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -52,19 +54,20 @@ const NavBar = () => {
         <>
             <NavContainer>
                 <NavLinkContainer>
-
                     <Link href="/">
                         <NavLink>Home</NavLink>
                     </Link>
                     <Link href={"/blog"}>
                         <NavLink >Blog</NavLink>
                     </Link>
-
-
-                        <NavLink>NFTs</NavLink>
-
+                    <Link href={"/nfts"}>
+                        <NavLink >NFTs</NavLink>
+                    </Link>
+                    <ConnectButton />
                 </NavLinkContainer>
+
             </NavContainer>
+       
         </>
     )
 }

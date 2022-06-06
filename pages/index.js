@@ -33,7 +33,7 @@ padding 0px;
 
 
 // @media (max-width: 1024px) {
-//   background: url('/MobileSpaceHeader.png') no-repeat center center fixed;
+//   background: url(/MobileSpaceHeader.png) no-repeat center center fixed;
 //   -webkit-background-size: cover;
 //   -moz-background-size: cover;
 //   -o-background-size: cover;
@@ -52,7 +52,7 @@ const BodyContainer = styled(ParallaxLayer)`
   justify-content: center;
   align-content: center;
   align-items: center;
-  background: url('/BodyBackground.png') no-repeat center center fixed;
+  background: url(/BodyBackground.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -80,7 +80,7 @@ const BodyCard = styled.div`
   align-items: center;
   align-content: center;
  
-  background: url('/IphoneMockup.png') no-repeat ;
+  background: url(/IphoneMockup.png) no-repeat ;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -163,7 +163,7 @@ const MainParallax = styled(Parallax)`
   height: 100vh;
   background-color: hsla(266,100%,64%,1);
 `
-const HeaderButton = styled.button`
+export const HeaderButton = styled.button`
   width: auto;
   height: auto;
   border-radius: 25px;
@@ -212,15 +212,17 @@ export default function Home() {
   const [toggle, setToggle] = useState(true)
 
   const handleToggle = () => {
+    api.start({ 
+      opacity: toggle ? 1 : 0,
+    })
     setToggle(prev => !prev)
+    api.stop()
   }
 
   // Update spring with new props
-  api.start({ 
-    opacity: toggle ? 1 : 0,
-  })
+
   // Stop animation
-  api.stop()
+
 
   console.log("BROBBY")
   console.log(toggle)

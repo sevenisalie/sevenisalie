@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Link from "next/link"
 
 import {BsArrowRightCircle} from "react-icons/bs"
+import {dateToHumanReadable} from "../../utils/functions"
 
 const BlogPostCard = styled.div`
     display: flex;
@@ -60,7 +61,7 @@ const BlogPostCardImage = styled.img`
         position: relative;
     }
 `
-const BlogPostTextContainer = styled.div`
+const BlogPostTextContainer = styled.article`
     display: flex;
     flex-direction: column;
     height: 70%;
@@ -73,7 +74,7 @@ const BlogPostTextContainer = styled.div`
 
 const BlogPostCardDateText = styled.div`
     color: #f7931e;
-    font-size: 0.7em;
+    font-size: 1.1em;
     font-weight: 200;
     text-align: left;
     @media (max-width: 768px) {
@@ -116,7 +117,7 @@ const BlogPost = ({ date, slug, summary, title, author, content, thumbnail }) =>
                     </BlogPostCardImageContainer>
 
                     <BlogPostTextContainer>
-                        <BlogPostCardDateText>{date}</BlogPostCardDateText>
+                        <BlogPostCardDateText>{dateToHumanReadable(date)}</BlogPostCardDateText>
                         <BlogPostCardTitleText>{title}</BlogPostCardTitleText>
                         <BlogPostCardDescriptionText>{summary}</BlogPostCardDescriptionText>
                         {/* <BlogPostCardArticleLink to={`/post/${props.post.slug}`}> */}
