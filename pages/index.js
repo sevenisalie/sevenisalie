@@ -283,7 +283,7 @@ export default function Home() {
           <HomeHeaderParallax offset={0.6}  speed={2.5} >
             <div style={{display: "flex", flexDirection: "column", rowGap: "3em"}}>
             <div style={{display: "flex", width: "50%", marginLeft: "5em"}}>
-          <HeaderButton>
+          {/* <HeaderButton>
               {`
               contact                                                                       
               `}
@@ -297,7 +297,7 @@ export default function Home() {
               {`
               merch                                                                       
               `}
-          </HeaderButton>
+          </HeaderButton> */}
 
           </div>
             <HeaderText >
@@ -336,7 +336,7 @@ Y88b 888 d88P Y8b.     888 d88P      .d8""8b.      Y88b 888 Y8b.          X88 88
           
 
 
-        <BodyContainer  offset={2} speed={0.3}>
+        <BodyContainer  offset={2}  speed={0.3}>
     
             <ParallaxHeaderText style={{padding: "1em"}}>MULTILINGUAL.</ParallaxHeaderText>
 
@@ -369,7 +369,7 @@ Y88b 888 d88P Y8b.     888 d88P      .d8""8b.      Y88b 888 Y8b.          X88 88
 
 
      
-        <HomeHeaderParallax style={{backgroundColor: "rgba(109, 67, 251, 1)"}} offset={3} factor={4} speed={-0.2} >    
+        <HomeHeaderParallax style={{backgroundColor: "rgba(109, 67, 251, 1)"}} offset={3.1} factor={4} speed={-0.2} >    
         </HomeHeaderParallax>
 
         <HomeHeaderParallax offset={3} factor={3} speed={0.3} >

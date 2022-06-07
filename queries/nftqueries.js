@@ -14,6 +14,8 @@ export const fetchAllCollections = async () => {
           quantity
           collectionName
           collectionDescription
+          githubUrl
+          etherscanUrl
           contractAddress
           displayImage {
             url

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
+import Link from "next/link"
 import { animated, useSpring} from "react-spring"
 
 import {useWeb3React} from "@web3-react/core"
@@ -8,6 +9,7 @@ import NFTCard from "./NFTCard"
 import { getRandomInt } from '../../utils/functions'
 import {BsArrowLeftCircle} from "react-icons/bs"
 import {FaFileContract, FaGithub} from "react-icons/fa"
+import NFTStatLayout from './NFTStatLayout'
 
 const DisplayCard = styled(animated.div)`
     display: flex;
@@ -155,12 +157,13 @@ const NFTLayout = ({ collection, id }) => {
                     </PriceContainer>
                     <LinkContainer>
                         <Github />
-                        <InfoLink>Code</InfoLink>
+            
+                        <InfoLink href={collection.githubUrl} target="_blank">Code</InfoLink>
                         <BsArrowLeftCircle style={{fontSize: "1.25em", alignSelf: "center", marginRight: "0.42em", color: "#fbdb37"}}/>
                     </LinkContainer>
                     <LinkContainer style={{marginTop: "0.42em"}}>
                         <ContractIcon />
-                        <InfoLink>Verified Contract</InfoLink>
+                        <InfoLink href={collection.githubUrl} target="_blank">Verified Contract</InfoLink>
                         <BsArrowLeftCircle style={{fontSize: "1.25em", alignSelf: "center", marginRight: "0.42em", color: "#fbdb37"}}/>
                     </LinkContainer>
             </InfoDisplayContainer>
@@ -169,6 +172,7 @@ const NFTLayout = ({ collection, id }) => {
                 {/* <NFTDisplayImage src={collection.displayImage.url}/> */}
             </DisplayContainer>
         </DisplayCard>
+        <NFTStatLayout collection={collection} />
         </>
     )
 }

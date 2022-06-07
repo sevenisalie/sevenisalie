@@ -23,9 +23,6 @@ const PageContainer = styled.div`
 `
 export const getStaticProps = async () => {
     const collections = await fetchAllCollections()
-    console.log("TIME MEDOWS")
-    console.log(collections)
-    console.log("WALK HARD")
     return {
         props: {
             ...collections

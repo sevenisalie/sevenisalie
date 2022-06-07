@@ -51,3 +51,8 @@ export const handleMint = async (_contract) => {
         return 
     }
 }
+
+export const fetchUserNFTs = async (_contract, _account) => {
+    const data = await _contract.walletOfOwner(_account)
+    return data
+}

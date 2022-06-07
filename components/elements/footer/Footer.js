@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from "styled-components"
 
+//make react icon links for your shit dumbass
+
 const FooterContainer = styled.div`
     display: flex;
     flex-direction: row;

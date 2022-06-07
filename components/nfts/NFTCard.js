@@ -102,7 +102,7 @@ const ButtonWrapper = styled.div`
       height: auto;
 `
 
-const MintButton = styled(animated.button)`
+export const MintButton = styled(animated.button)`
     width: auto;
     height: auto;
     border-radius: 25px;
