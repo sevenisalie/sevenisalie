@@ -293,6 +293,7 @@ const Blog = ({ blogPosts }) => {
             author={post.author}
             content={post.content}
             thumbnail={post.thumbnail.url}
+            key={index}
          />
     ))
 

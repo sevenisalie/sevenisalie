@@ -101,7 +101,7 @@ const NFTHeaderGrid = (props) => {
                     <InstructionList>
                         <InstructionText style={{fontSize: "1.3em", color: "#fbdb37"}}>Welcome to Corn Finance. </InstructionText>
                         <InstructionText>While our flagship equity router and algo-vaults are what make Corn Finance run, we still think traditional NFTs are totally f***ing awesome for trading and showing off.</InstructionText>
-                        <InstructionText>Our in-house artist, sevenisalie, helps dish them up with collaboration from the community.  Get 'em while you can!</InstructionText>
+                        <InstructionText>Our in-house artist, sevenisalie, helps dish them up with collaboration from the community.  {`Get 'em while you can!`}</InstructionText>
                     </InstructionList>
                 </InstructionCard>
 

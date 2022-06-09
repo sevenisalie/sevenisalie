@@ -158,12 +158,12 @@ const NFTLayout = ({ collection, id }) => {
                     <LinkContainer>
                         <Github />
             
-                        <InfoLink href={collection.githubUrl} target="_blank">Code</InfoLink>
+                        <InfoLink href={collection.githubUrl} rel="noreferrer" target="_blank">Code</InfoLink>
                         <BsArrowLeftCircle style={{fontSize: "1.25em", alignSelf: "center", marginRight: "0.42em", color: "#fbdb37"}}/>
                     </LinkContainer>
                     <LinkContainer style={{marginTop: "0.42em"}}>
                         <ContractIcon />
-                        <InfoLink href={collection.etherscanUrl} target="_blank">Verified Contract</InfoLink>
+                        <InfoLink href={collection.etherscanUrl} rel="noreferrer" target="_blank">Verified Contract</InfoLink>
                         <BsArrowLeftCircle style={{fontSize: "1.25em", alignSelf: "center", marginRight: "0.42em", color: "#fbdb37"}}/>
                     </LinkContainer>
             </InfoDisplayContainer>

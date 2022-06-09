@@ -83,7 +83,9 @@ export const ConnectButton = () => {
         if (account === undefined)  {
             handleEagerConnect(injected);
         }
-    }, [])
+    }, [account])
+
+ 
 
     const isMetaMaskInstalled = async () => {
         const { ethereum } = window

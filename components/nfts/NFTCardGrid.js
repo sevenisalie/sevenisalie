@@ -24,7 +24,7 @@ const NFTCardGridContainer = styled.div`
 
 const NFTCardGrid = (props) => {
     const NFTCollection = NFTS.map( (nft, index) => (
-        <NFTCard contract={props.contracts} data={nft} id={index} mintFunction={props.mint}/>
+        <NFTCard contract={props.contracts} data={nft} key={index} id={index} mintFunction={props.mint}/>
     ))
 
     return (
