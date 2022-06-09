@@ -143,7 +143,7 @@ const NFTLayout = ({ collection, id }) => {
 
         <DisplayCard  style={collectionAnimeStyle}>
             <InfoDisplayContainer>
-                <CollectionNameText>{collection.collectionName}</CollectionNameText>
+                <CollectionNameText>{`by Sevenisalie`}</CollectionNameText>
                 <CollectionTokenIDText>{collection.collectionName + ' ' + '#' + getRandomInt(1, 100)}</CollectionTokenIDText>
                 <CollectionDescription>
                     {collection.collectionDescription}
@@ -163,7 +163,7 @@ const NFTLayout = ({ collection, id }) => {
                     </LinkContainer>
                     <LinkContainer style={{marginTop: "0.42em"}}>
                         <ContractIcon />
-                        <InfoLink href={collection.githubUrl} target="_blank">Verified Contract</InfoLink>
+                        <InfoLink href={collection.etherscanUrl} target="_blank">Verified Contract</InfoLink>
                         <BsArrowLeftCircle style={{fontSize: "1.25em", alignSelf: "center", marginRight: "0.42em", color: "#fbdb37"}}/>
                     </LinkContainer>
             </InfoDisplayContainer>

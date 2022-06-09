@@ -5,7 +5,7 @@ import {useWeb3React} from "@web3-react/core"
 import {animated, useSpring} from "react-spring"
 import {HeaderButton} from "../../pages/index"
 import {AiFillSetting} from "react-icons/ai"
-import {truncateAddress, getRandomInt} from "../../utils/functions"
+import {truncateAddress, getRandomInt, fetchAllNFTs} from "../../utils/functions"
 import useFetchContract from "../../hooks/useFetchContract"
 import ConnectButton from "../elements/connect/ConnectButton"
 import {MintButton} from "./NFTCard"
@@ -50,14 +50,16 @@ const MyCollectionCard = styled.div`
     }
 `
 const CollectionDisplayGrid = styled(animated.div)`
-    width: 100%;
+    width: max-content;
     height: auto;
     display: grid; 
     grid-template-columns: 1fr 1fr 1fr; 
     grid-template-rows: auto; 
-    gap: 3em 0.3em; 
+    gap: 0.8em 1.8em; 
     place-items: center;
     margin-bottom: 2em;
+    margin-right: auto;
+    margin-left: auto;
 `
 const CollectionItemCard = styled.div`
     display: flex;
@@ -71,14 +73,10 @@ const CollectionItemCard = styled.div`
     border: 1px solid rgba(242, 242, 242, 0.12);
     border-radius: 10px;
 `
-const NFTImageWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    height: 9em;
-    width: auto;
-    background-color: rgba(5, 5 , 5, 1);
-    border-radius: 8px;
+const DisplayCollectionItemCard = styled(CollectionItemCard)`
+    width: max-content;
 `
+
 const NFTImage = styled.img`
     width: 9em;
     height: auto;
@@ -131,10 +129,40 @@ const UserNFTRow = styled.div`
     place-items: center;
 `
 const ViewButton = styled(MintButton)`
-    font-size: 2em;
+    font-size: 1em;
+    align-self: flex-start;
+    margin: 0;
 `
+const ViewButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: max-content;
+    padding: 2em;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 3em;
+`
+const LoadButton = styled(MintButton)`
+    width: 60%;
+    background-opacity: 40%;
+    background-color: rgba(80, 56, 166, 0.33);
+    border: 2px solid rgba(255, 240, 135, 1);
+    box-shadow: var(--shadow-elevation-high);
+    margin-right: auto;
+    margin-left: auto;
 
-function CollectionCard({ collection, id }) {
+    &:hover {
+        background-color: rgba(80, 56, 166, 0.65);
+        border: 2px solid rgba(255, 240, 135, 1);
+    }
+
+    &:select {
+        box-shadow: var(--shadow-elevation-low);
+    }
+`
+function CollectionCard({ collection, nft, id, style }) {
     const [openSeaAnimeTrigger, setOpenSeaAnimeTrigger] = useState(false)
     const openSeaAnimeStyle = useSpring({
         transform: openSeaAnimeTrigger ? `scale(1.08)` : `scale(1)`,
@@ -150,10 +178,46 @@ function CollectionCard({ collection, id }) {
 
     return (
         <>
-        <CollectionItemCard>
+        <CollectionItemCard style={style}>
                 <NFTImage src={collection.displayImage.url} />
-                <NFTTitle>{collection.collectionName + ' ' + '#' + id}</NFTTitle>
+                <NFTTitle>{collection.collectionName + ' ' + '#' + nft.id}</NFTTitle>
             <NFTOwner target="_blank" href={`https://polygonscan.com/address/${'0x395977E98105A96328357f847Edc75333015b8f4'}`}>{`Owner: ${truncateAddress("0x0x395977E98105A96328357f847Edc75333015b8f4", true)}`}</NFTOwner>
+            <a target={"_blank"} href={`https://opensea.io/assets/matic/0x5b5707bd04b74bd624692b75b6f1eeda5f4806ed/${nft.id}`} style={{width: "100%"}}>
+                <OpenSeaButton
+                    style={openSeaAnimeStyle}
+                    onMouseEnter={handleButtonTrigger}
+                    onMouseLeave={handleButtonTrigger}
+                >
+                    OpenSea
+                </OpenSeaButton>
+            </a>
+
+        </CollectionItemCard>
+        </>
+    )
+}
+
+function DisplayCollectionCard({ collection, nft, style }) {
+    const [openSeaAnimeTrigger, setOpenSeaAnimeTrigger] = useState(false)
+    const openSeaAnimeStyle = useSpring({
+        transform: openSeaAnimeTrigger ? `scale(1.08)` : `scale(1)`,
+        background: openSeaAnimeTrigger  ? `rgba(247, 147, 30, 0.6)` : `rgba(247, 147, 30, 0.3)`,
+        config: {
+            tension: 180,
+            friction: 15
+        }
+    })
+    const handleButtonTrigger = () => {
+        setOpenSeaAnimeTrigger( prev => !prev )
+    }
+
+    return (
+        <>
+        <DisplayCollectionItemCard >
+                <NFTImage style={{width: "12em"}} src={collection.displayImage.url} />
+                <NFTTitle>{collection.collectionName + ' ' + '#' + nft.id}</NFTTitle>
+            <NFTOwner target="_blank" href={`https://polygonscan.com/address/${nft.owner}`}>{`Owner: ${truncateAddress(nft.owner, true)}`}</NFTOwner>
+            <a target={"_blank"} href={`https://opensea.io/assets/matic/0x5b5707bd04b74bd624692b75b6f1eeda5f4806ed/${nft.id}`} style={{width: "100%"}}>
             <OpenSeaButton
                 style={openSeaAnimeStyle}
                 onMouseEnter={handleButtonTrigger}
@@ -161,7 +225,8 @@ function CollectionCard({ collection, id }) {
             >
                 OpenSea
             </OpenSeaButton>
-        </CollectionItemCard>
+            </a>
+        </DisplayCollectionItemCard>
         </>
     )
 }
@@ -171,8 +236,27 @@ const NFTStatLayout = ({ collection }) => {
     const {account, active} = useWeb3React()
     const [contract] = useFetchContract(collection.contractAddress, NFTCONTRACT.abi)
     const [userNFTs, setUserNFTs] = useState([])
+    const [allNFTs, setAllNFTs] = useState([])
+    const [loading, setLoading] = useState(true)
+
     const [loadAll, setLoadAll] = useState(false)
-    const fakeData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+    const [displayData, setDisplayData] = useState([])
+    const [page, setPage] = useState(0)
+    const [resultsPerPage, setResultsPerPage] = useState(6)
+    const [endPaginate, setEndPaginate] = useState(false)
+    const fakeData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+    18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+
+    useEffect(() => {
+        if (contract && account) {
+            const fetchData = async () => {
+                const data = await fetchAllNFTs(contract, account)
+                return setAllNFTs(data)
+            }
+            fetchData()
+        }
+    }, [contract])
     
     useEffect(() => {
         if (contract && account) {
@@ -231,23 +315,87 @@ const NFTStatLayout = ({ collection }) => {
     }
 
     //mappings
+    const paginateUp = (_allItems) => {
+        const totalCount = _allItems.length //16
+        const currentEnd = page * resultsPerPage
+        const currentStart = currentEnd - resultsPerPage
+        const shownItems = displayData
+        const newPage = page + 1
+        const newEnd = newPage * resultsPerPage
+        const newStart = newEnd - resultsPerPage
 
-    const NFTs = fakeData.map( (nft, id) => {
+        if (newEnd > totalCount) {
+            const lastPage = parseInt(totalCount / resultsPerPage)
+            const newDisplay = _allItems.slice(currentStart, totalCount)
+            setPage(lastPage)
+            setDisplayData(newDisplay)
+            console.log("REACHED END")
+            console.log({
+                pg: page,
+                display: newDisplay
+            })
+            return setEndPaginate(true)
+        } else {
+            const newDisplay = _allItems.slice(newStart, newEnd)
+            setPage(newPage)
+            setDisplayData(newDisplay)
+            return true
+        }
+
+    }
+
+    const paginateDown = (_allItems) => {
+        const totalCount = _allItems.length //16
+        const currentEnd = page * resultsPerPage
+        const currentStart = currentEnd - resultsPerPage
+        const shownItems = displayData
+        const newPage = page - 1
+        const newEnd = newPage * resultsPerPage
+        const newStart = newEnd - resultsPerPage
+
+        if (newStart < 0) {
+            const firstPage = parseInt(totalCount / resultsPerPage)
+            const newDisplay = _allItems.slice(0, resultsPerPage)
+            setPage(1)
+            setDisplayData(newDisplay)
+            console.log("REACHED END")
+            console.log({
+                pg: page,
+                display: newDisplay
+            })
+            return setEndPaginate(false)
+        } else {
+            const newDisplay = _allItems.slice(newStart, newEnd)
+            setPage(newPage)
+            setDisplayData(newDisplay)
+            setEndPaginate(false)
+            return true
+        }
+    }
+
+    const NFTs = displayData.map( (nft, id) => {
+
         return (
-            <CollectionCard collection={collection} id={id}/>
+            <DisplayCollectionCard
+             style={{rowGap: "1em"}} 
+             collection={collection} 
+             nft={nft}
+             key={id}
+             />
         )
     })
 
     let UserNFTs;
     if (userNFTs.length > 0) {
         UserNFTs = userNFTs.map( ( nft, id ) => (
-            <CollectionCard collection={collection} id={nft} />
+            <CollectionCard collection={collection} nft={nft} key={id} />
         ))
     }
 
     return (
         <>
         <DisplayContainer>
+
             <MyCollectionCard>
                 <div style={{display: "flex", flexDirection: "row", alignItems: "center", alignContent: "center", justifyContent: "center", width: "100%", height: "auto", marginBottom: "2em"}}>
                     <AiFillSetting style={{fontSize: "1.8em", color: "rgba(242, 242, 242, 0.8)", marginRight: "0.6em"}}></AiFillSetting>
@@ -259,15 +407,53 @@ const NFTStatLayout = ({ collection }) => {
                 : <ConnectButton />
                 }
             </MyCollectionCard>
-            <ViewButton
-            style={loadButtonStyle} 
-            onMouseEnter={handleLoadAnime}
-            onMouseLeave={handleLoadAnime}
-            onClick={() => handleLoadAll()}
-            >View Entire Collection</ViewButton>
+
         </DisplayContainer>
+
+        <ViewButtonContainer>
+
         {
-            loadAll == true
+            page === 0
+            ?
+            <LoadButton
+                onClick={() => paginateUp(allNFTs)}
+            >
+                View Entire Collection
+            </LoadButton>
+            :
+            null
+        }
+
+        {
+            page === 0
+            ?
+            null
+            :
+            <ViewButton
+                style={loadButtonStyle} 
+                onMouseEnter={handleLoadAnime}
+                onMouseLeave={handleLoadAnime}
+                onClick={() => paginateDown(fakeData)}
+            >previous
+            </ViewButton>
+        }
+        {
+            (endPaginate === true || page === 0)
+            ?
+            null
+            :
+            <ViewButton
+                style={loadButtonStyle} 
+                onMouseEnter={handleLoadAnime}
+                onMouseLeave={handleLoadAnime}
+                onClick={() => paginateUp(fakeData)}
+            >Next
+            </ViewButton>
+        }
+        </ViewButtonContainer>
+
+        {
+            displayData.length > 0
             ? 
             <CollectionDisplayGrid>
             {NFTs}
@@ -275,6 +461,12 @@ const NFTStatLayout = ({ collection }) => {
             :
             null
         }  
+
+
+
+
+
+
 
         </>
     )

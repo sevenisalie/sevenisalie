@@ -56,3 +56,23 @@ export const fetchUserNFTs = async (_contract, _account) => {
     const data = await _contract.walletOfOwner(_account)
     return data
 }
+
+
+
+export const fetchAllNFTs = async (_contract, _account) => {
+    const supply = await _contract.totalSupply()
+    const supplyInt = parseInt(supply._hex) + 1 //shift index to the right cuz nft 0 doesnt exist
+    const mintedArray = [...Array(supplyInt).keys()]
+    const mintedNFTs = mintedArray.slice(1, supplyInt)
+    const minted = mintedNFTs.map( async ( nft ) => {
+        const _owner = await _contract.ownerOf(nft)
+
+        return {
+            id: nft,
+            owner: _owner
+        }
+    })
+    const data = await Promise.all(minted)
+
+    return data
+}
