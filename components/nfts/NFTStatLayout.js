@@ -47,6 +47,7 @@ const MyCollectionCard = styled.div`
 
     @media (max-width: 612px) {
         align-self: center;
+        padding: 0.8em;
     }
 `
 const CollectionDisplayGrid = styled(animated.div)`
@@ -60,6 +61,13 @@ const CollectionDisplayGrid = styled(animated.div)`
     margin-bottom: 2em;
     margin-right: auto;
     margin-left: auto;
+
+    @media (max-width: 720px) {
+        grid-template-columns: 1fr 1fr; 
+    }
+    @media (max-width: 464px) {
+        grid-template-columns: 1fr; 
+    }
 `
 const CollectionItemCard = styled.div`
     display: flex;
@@ -121,12 +129,16 @@ const OpenSeaButton = styled(animated.button)`
 `
 const UserNFTRow = styled.div`
     display: grid; 
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr 1fr 1fr; 
     grid-template-rows: auto; 
     gap: 0.5em 0.5em;
     height: auto;
     width: auto; 
     place-items: center;
+
+    @media (max-width: 540px) {
+        grid-template-columns: 1fr 1fr; 
+    }
 `
 const ViewButton = styled(MintButton)`
     font-size: 1em;
@@ -254,7 +266,9 @@ const NFTStatLayout = ({ collection }) => {
                 const data = await fetchAllNFTs(contract, account)
                 return setAllNFTs(data)
             }
-            fetchData()
+            try {
+                fetchData()
+            } catch (err) {console.log(err)}
         }
     }, [contract, account])
     
@@ -264,8 +278,6 @@ const NFTStatLayout = ({ collection }) => {
                 try {
                     const data = await _contract.walletOfOwner(_account)
                     const cleaned = data.map( (nft) => {
-                        console.log("IM RON BURG")
-                        console.log(nft)
                         const int = parseInt(nft._hex)
                         return int
                     })

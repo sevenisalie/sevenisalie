@@ -8,6 +8,18 @@ import { useSpring, animated } from 'react-spring'
 import useIntersectionObserver from "../hooks/useInterSectionObserver"
 import SpaceHeader from "/public/SpaceHeader.png"
 
+const PageContainer = styled.div`
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    background: url(/BodyBackground.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+`
+
 
 const HomeHeaderContainer = styled.div`
   display: flex;
@@ -219,19 +231,15 @@ export default function Home() {
     api.stop()
   }
 
-  // Update spring with new props
-
-  // Stop animation
 
 
-  console.log("BROBBY")
-  console.log(toggle)
+
 
 
 
   return (
     <>
-
+  <PageContainer>
      
       <MainParallax pages={7}>
 
@@ -445,7 +453,7 @@ Y88b 888 d88P Y8b.     888 d88P      .d8""8b.      Y88b 888 Y8b.          X88 88
         </HomeHeaderParallax>
 
         <HomeHeaderParallax offset={6.3} speed={2.3} >
-           <ParallaxImage style={{width: "auto", height: "15%", marginRight: "8em", marginLeft: "auto"}}  src={"/Earth-Sattelite-02.png"}  />
+           <ParallaxImage style={{width: "auto", height: "15%", marginRight: "3em", marginLeft: "auto"}}  src={"/Earth-Sattelite-02.png"}  />
         </HomeHeaderParallax>
 
         <HomeHeaderParallax offset={6.3} speed={2.3} >
@@ -456,7 +464,7 @@ Y88b 888 d88P Y8b.     888 d88P      .d8""8b.      Y88b 888 Y8b.          X88 88
       </MainParallax>
 
           
-  
+      </PageContainer>
 
 
 

@@ -126,9 +126,9 @@ export const NFTFooter = ({ count, collection}) => {
           
             
                 <DetailsGrid>
-                    <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0.3em", marginTop: "0.3em"}}>{`42%`} Reinvestment</p></NFTFooterBadge>
+                    <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0.3em", marginTop: "0.3em"}}>Stake2Earn</p></NFTFooterBadge>
                     <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0.3em", marginTop: "0.3em"}}>artist: sevenisalie</p></NFTFooterBadge>
-                    <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0.3em", marginTop: "0.3em"}}>Remaining: {count}/42</p></NFTFooterBadge>
+                    <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0.3em", marginTop: "0.3em"}}>Remaining: {count !== false ? collection.quantity - count : `Connect`}/{collection.quantity}</p></NFTFooterBadge>
                     <FaTicketAlt style={{color: "#fbdb37", fontSize: "200%"}}></FaTicketAlt>
                 </DetailsGrid>
 

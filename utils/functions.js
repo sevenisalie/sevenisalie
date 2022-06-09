@@ -76,3 +76,14 @@ export const fetchAllNFTs = async (_contract, _account) => {
 
     return data
 }
+
+export const fetchNFTCount = async (_contract) => {
+    try {
+        const rawSupply = await _contract.totalSupply()
+        const supply = parseInt(rawSupply._hex)
+        return supply
+    } catch (err) {
+        console.log(err)
+        return null
+    }
+}

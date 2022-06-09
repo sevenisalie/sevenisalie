@@ -40,6 +40,7 @@ import {useWeb3React} from "@web3-react/core";
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
 `
 
 const getLibrary = (provider, connector)  => {
@@ -54,7 +55,6 @@ function MyApp({ Component, pageProps }) {
     <PageContainer>
       <NavBar />
       <ToastContainer></ToastContainer>
-
         <Component {...pageProps} />
       <Footer />
     </PageContainer>

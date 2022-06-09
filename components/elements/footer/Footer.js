@@ -31,7 +31,7 @@ const FooterContentContainer = styled.div`
     background-color: rgb(163, 102, 255);
     color: rgba(242, 242, 242, 0.98);
 `
-const LinkContainer = styled(animated.div)`
+const LinkContainer = styled(animated.a)`
     height: max-content:
     width: max-content;
     cursor: pointer;
@@ -56,7 +56,7 @@ const LinkImage = styled.img`
     width: 11em;
     height: auto;
 `
-const LinksContainer = styled.a`
+const LinksContainer = styled.div`
     display: flex;
     flex-direction: row;
     width: 50%;

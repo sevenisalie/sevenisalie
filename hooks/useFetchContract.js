@@ -14,7 +14,7 @@ const useFetchContract = (_ADDRESS, _ABI) => {
          }
      }
   )
- const [contract, setContract] = useState({})
+ const [contract, setContract] = useState(null)
 
 
  useEffect(() => {
@@ -48,7 +48,6 @@ const useFetchContract = (_ADDRESS, _ABI) => {
        
     } else {
         console.log(query)
-        console.log(`fucked up while loading contract`)
     }
 }, [active, account, query])
 

@@ -20,6 +20,10 @@ const PageContainer = styled.div`
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
+    @media (max-width: 525px) {
+        padding: 0.62em;
+      }
 `
 export const getStaticProps = async () => {
     const collections = await fetchAllCollections()

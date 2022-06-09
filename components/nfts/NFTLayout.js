@@ -26,6 +26,12 @@ const DisplayCard = styled(animated.div)`
     border-radius: 8px;
     width: 90%;
     height: auto;
+
+    @media (max-width: 775px) {
+        flex-direction: column;
+        width: auto;
+        padding: 0.2em;
+    }
 `
 const DisplayContainer = styled.div`
     display: flex;
@@ -61,6 +67,10 @@ const CollectionTokenIDText = styled.p`
     font-size: 2.7em;
     font-weight: 800;
     color: rgba(242, 242, 242, 1);
+
+    @media (max-width: 600px) {
+        font-size: 2.2em;
+    }
 `
 const CollectionDescription = styled.p`
     font-size: 1em;
@@ -126,7 +136,7 @@ const NFTLayout = ({ collection, id }) => {
     const [collectionAnime, setCollectionAnime] = useState(false)
 
     const collectionAnimeStyle = useSpring({
-        marginLeft: collectionAnime ? `3em` : `-500px`,
+        marginLeft: collectionAnime ? `0em` : `-500px`,
         opacity: collectionAnime  ? `100%` : `0%`,
         // config: {
         //     tension: 100,

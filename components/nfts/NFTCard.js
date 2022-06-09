@@ -6,7 +6,7 @@ import { useSpring, animated} from "react-spring"
 import useFetchContract from "../../hooks/useFetchContract"
 import ADDRESSES from "../../config/addresses"
 import POLYDOUGHNUTS from "../../config/contracts/PolyDoughnuts.json"
-import {handleMint} from "../../utils/functions"
+import {handleMint, fetchNFTCount} from "../../utils/functions"
 
 import {NFTFooter} from "./NFTFooter"
 import {GiCupcake} from "react-icons/gi"
@@ -25,6 +25,10 @@ export const MyNFTCard = styled.div`
     background-color: rgba(242, 242, 242, 0.17);
     border: 1px solid rgba(255, 255, 255, 0.125);
     box-shadow: var(--shadow-elevation-low);
+
+    @media (max-width: 525px) {
+        width: 90%;
+      }
 `
 const MyNFTCardContainer = styled.div`
     display: flex;
@@ -66,7 +70,7 @@ const NFTImageWrapper = styled.img`
     border-radius: 5px;
     border: 5px solid #141516;
     background: #4c4e54;
-    width: 90%;
+    width: 95%;
     height: auto;
     align-self: center;
 `
@@ -128,10 +132,10 @@ export const MintButton = styled(animated.button)`
     }
 
     @media (max-width: 768px) {
-    font-size: 8px;
+    font-size: 1em;
     }
     @media (max-width: 468px) {
-    font-size: 6px;
+    font-size: 1em;
     }
 `
 
@@ -144,7 +148,24 @@ const MaticImageWrapper = styled.img`
 export const NFTCard = ({collection}) => {
     const [ contract ] = useFetchContract(collection.contractAddress, POLYDOUGHNUTS.abi)
     const {account, active, library} = useWeb3React()
+    const [ count, setCount ] = useState(false)
     const [mintAnimeTrigger, setMintAnimeTrigger] = useState(false)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchNFTCount(contract)
+
+                if (data !== null) {
+                    setCount(data)
+                }
+            } catch (err) {console.log(err)}
+        }
+        if (contract && account) {
+            fetchData()
+        }
+        
+    }, [contract, account])
 
     const mintButtonStyle = useSpring({
         transform: mintAnimeTrigger ? `scale(1.2)` : `scale(1)`,
@@ -158,6 +179,7 @@ export const NFTCard = ({collection}) => {
     const handleMintAnime = () => {
         setMintAnimeTrigger( prev => !prev )
     }
+
 
 
 
@@ -193,7 +215,7 @@ export const NFTCard = ({collection}) => {
                 </PriceRow>
 
 
-                <NFTFooter count={32} collection={collection}></NFTFooter>  
+                <NFTFooter count={count} collection={collection}></NFTFooter>  
                 </MyNFTCardContainer>
             </MyNFTCard> 
         </>
