@@ -57,9 +57,9 @@ const BodyContainer = styled(ParallaxLayer)`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: auto;
-  padding-top: 12em;
-  padding-bottom: 12em;
+  height: max-content;
+  // padding-top: 12em;
+  // padding-bottom: 12em;
   column-gap: 2em;
   justify-content: center;
   align-content: center;
@@ -70,17 +70,19 @@ const BodyContainer = styled(ParallaxLayer)`
   -o-background-size: cover;
   background-size: cover;
 
-  @media (max-width: 768px) {
+  @media (max-width: 980px) {
     flex-direction: column;
-    row-gap: 25px;
-    height: 100%;
+    row-gap: 1em;
+    height: max-content;
+    justify-content: flex-start;
+
   }
 `
 const CardsContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: auto;
+  height: max-content;
 `
 const BodyCard = styled.div`
   display: flex;
@@ -109,7 +111,7 @@ const BodyCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: auto;
+  height: max-content;
   row-gap: 9px;
   justify-content: center;
   align-content: center;
@@ -344,9 +346,11 @@ Y88b 888 d88P Y8b.     888 d88P      .d8""8b.      Y88b 888 Y8b.          X88 88
           
 
 
-        <BodyContainer  offset={2}  speed={0.3}>
+        <BodyContainer  offset={2} factor={2} speed={0.3}>
     
-            <ParallaxHeaderText style={{padding: "1em"}}>MULTILINGUAL.</ParallaxHeaderText>
+            <ParallaxHeaderText style={{padding: "0.2em"}}>MOBILE.</ParallaxHeaderText>
+            {/* <ParallaxHeaderText style={{padding: "1em"}}>{`& MULTILINGUAL`}</ParallaxHeaderText> */}
+
 
         <CardsContainer>
           <BodyCardContainer>
@@ -377,7 +381,7 @@ Y88b 888 d88P Y8b.     888 d88P      .d8""8b.      Y88b 888 Y8b.          X88 88
 
 
      
-        <HomeHeaderParallax style={{backgroundColor: "rgba(109, 67, 251, 1)"}} offset={3.1} factor={4} speed={-0.2} >    
+        <HomeHeaderParallax style={{backgroundColor: "rgba(109, 67, 251, 1)"}} offset={3.3} factor={4} speed={-0.2} >    
         </HomeHeaderParallax>
 
         <HomeHeaderParallax offset={3} factor={3} speed={0.3} >

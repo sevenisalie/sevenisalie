@@ -136,7 +136,7 @@ const NFTLayout = ({ collection, id }) => {
     const [collectionAnime, setCollectionAnime] = useState(false)
 
     const collectionAnimeStyle = useSpring({
-        marginLeft: collectionAnime ? `0em` : `-500px`,
+        marginLeft: collectionAnime ? "auto" : "-500px",
         opacity: collectionAnime  ? `100%` : `0%`,
         // config: {
         //     tension: 100,
@@ -154,7 +154,7 @@ const NFTLayout = ({ collection, id }) => {
         <DisplayCard  style={collectionAnimeStyle}>
             <InfoDisplayContainer>
                 <CollectionNameText>{`by Sevenisalie`}</CollectionNameText>
-                <CollectionTokenIDText>{collection.collectionName + ' ' + '#' + getRandomInt(1, 100)}</CollectionTokenIDText>
+                <CollectionTokenIDText>{collection.collectionName}</CollectionTokenIDText>
                 <CollectionDescription>
                     {collection.collectionDescription}
                 </CollectionDescription>
