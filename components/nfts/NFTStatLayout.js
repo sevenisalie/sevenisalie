@@ -174,7 +174,7 @@ const LoadButton = styled(MintButton)`
         box-shadow: var(--shadow-elevation-low);
     }
 `
-function CollectionCard({ collection, nft, id, style }) {
+function CollectionCard({ user, collection, nft, id, style }) {
     const [openSeaAnimeTrigger, setOpenSeaAnimeTrigger] = useState(false)
     const openSeaAnimeStyle = useSpring({
         transform: openSeaAnimeTrigger ? `scale(1.08)` : `scale(1)`,
@@ -193,7 +193,10 @@ function CollectionCard({ collection, nft, id, style }) {
         <CollectionItemCard style={style}>
                 <NFTImage src={collection.displayImage.url} />
                 <NFTTitle>{collection.collectionName + ' ' + '#' + nft}</NFTTitle>
-            <NFTOwner target="_blank" rel="noreferrer" href={`https://polygonscan.com/address/${'0x395977E98105A96328357f847Edc75333015b8f4'}`}>{`Owner: ${truncateAddress("0x0x395977E98105A96328357f847Edc75333015b8f4", true)}`}</NFTOwner>
+                {user !== undefined &&
+                <NFTOwner target="_blank" rel="noreferrer" href={`https://polygonscan.com/address/${user}`}>{`Owner: ${truncateAddress(user, true)}`}</NFTOwner>
+
+                }
             <a target={"_blank"} rel="noreferrer" href={`https://opensea.io/assets/matic/0x5b5707bd04b74bd624692b75b6f1eeda5f4806ed/${nft}`} style={{width: "100%"}}>
                 <OpenSeaButton
                     style={openSeaAnimeStyle}
@@ -228,7 +231,9 @@ function DisplayCollectionCard({ collection, nft, style }) {
         <DisplayCollectionItemCard >
                 <NFTImage style={{width: "12em"}} src={collection.displayImage.url} />
                 <NFTTitle>{collection.collectionName + ' ' + '#' + nft.id}</NFTTitle>
-            <NFTOwner target="_blank" rel="noreferrer" href={`https://polygonscan.com/address/${nft.owner}`}>{`Owner: ${truncateAddress(nft.owner, true)}`}</NFTOwner>
+                { nft.owner !== undefined &&
+                <NFTOwner target="_blank" rel="noreferrer" href={`https://polygonscan.com/address/${nft.owner}`}>{`Owner: ${truncateAddress(nft.owner, true)}`}</NFTOwner>
+                }
             <a target={"_blank"} rel="noreferrer" href={`https://opensea.io/assets/matic/0x5b5707bd04b74bd624692b75b6f1eeda5f4806ed/${nft.id}`} style={{width: "100%"}}>
             <OpenSeaButton
                 style={openSeaAnimeStyle}
@@ -264,6 +269,7 @@ const NFTStatLayout = ({ collection }) => {
         if (contract && account) {
             const fetchData = async () => {
                 const data = await fetchAllNFTs(contract, account)
+
                 return setAllNFTs(data)
             }
             try {
@@ -339,6 +345,9 @@ const NFTStatLayout = ({ collection }) => {
         if (newEnd > totalCount) {
             const lastPage = parseInt(totalCount / resultsPerPage)
             const newDisplay = _allItems.slice(currentStart, totalCount)
+            console.log("PROP")
+            console.log(newDisplay)
+            console.log("ERTY RIGHTS")
             setPage(lastPage)
             setDisplayData(newDisplay)
             console.log("REACHED END")
@@ -400,7 +409,7 @@ const NFTStatLayout = ({ collection }) => {
     let UserNFTs;
     if (userNFTs.length > 0) {
         UserNFTs = userNFTs.map( ( nft, id ) => (
-            <CollectionCard collection={collection} nft={nft} key={id} />
+            <CollectionCard user={account} collection={collection} nft={nft} key={id} />
         ))
     }
 
@@ -445,7 +454,7 @@ const NFTStatLayout = ({ collection }) => {
                 style={loadButtonStyle} 
                 onMouseEnter={handleLoadAnime}
                 onMouseLeave={handleLoadAnime}
-                onClick={() => paginateDown(fakeData)}
+                onClick={() => paginateDown(allNFTs)}
             >previous
             </ViewButton>
         }
@@ -458,7 +467,7 @@ const NFTStatLayout = ({ collection }) => {
                 style={loadButtonStyle} 
                 onMouseEnter={handleLoadAnime}
                 onMouseLeave={handleLoadAnime}
-                onClick={() => paginateUp(fakeData)}
+                onClick={() => paginateUp(allNFTs)}
             >Next
             </ViewButton>
         }
