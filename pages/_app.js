@@ -10,7 +10,7 @@ import styled from "styled-components"
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
-  body {
+  html, body {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Ubuntu', sans-serif;
     color: #242424;
     width: 100vw;
-    height: 100vh;
+    height: auto;
     max-width: 100vw;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -36,10 +36,10 @@ import {useWeb3React} from "@web3-react/core";
     width: 100%;
     height: auto;
     background: url(/BodyBackground.png) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    // -webkit-background-size: cover;
+    // -moz-background-size: cover;
+    // -o-background-size: cover;
+    // background-size: cover;
 
 `
 
@@ -52,12 +52,12 @@ function MyApp({ Component, pageProps }) {
     <>
   <Web3ReactProvider getLibrary={getLibrary}>
     <GlobalStyle />
-    <PageContainer>
+
       <NavBar />
       <ToastContainer></ToastContainer>
         <Component {...pageProps} />
       <Footer />
-    </PageContainer>
+
   </Web3ReactProvider>
  
     </>

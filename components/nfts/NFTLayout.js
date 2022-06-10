@@ -162,7 +162,7 @@ const NFTLayout = ({ collection, id }) => {
                     <PriceInfoText>Price</PriceInfoText>
                     <PriceContainer>
                         <PriceTokenSymbol src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"}/>
-                        <PriceText>{`0.042`}</PriceText>
+                        <PriceText>{collection.price}</PriceText>
                         <PriceInfoText>{`(~0.03 USD)`}</PriceInfoText>
                     </PriceContainer>
                     <LinkContainer>
