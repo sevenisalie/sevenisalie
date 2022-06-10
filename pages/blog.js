@@ -305,7 +305,6 @@ const Blog = ({ blogPosts }) => {
     const featuredPost = blogPosts[0]    
     return (
         <>
-        <PageContainer>
         <BlogPageContainer>
  
             
@@ -336,7 +335,6 @@ const Blog = ({ blogPosts }) => {
             </BlogPostGridContainer>
         
         </BlogPageContainer>
-        </PageContainer>
         </>
     )
 }

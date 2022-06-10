@@ -13,8 +13,8 @@ import {fetchAllCollections} from "../queries/nftqueries"
 
 const PageContainer = styled.div`
     width: 100%;
-    height: auto;
-    min-height: 100vh;
+    height: max-content;
+
     background: url(/BodyBackground.png) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -38,9 +38,7 @@ const NFTs = ({ nftCollections }) => {
 
     return (
         <>
-        <PageContainer>
             <NFTLayout id={"PolyDoughnuts"} collection={nftCollections[0]}></NFTLayout>
-        </PageContainer>
         </>
     )
 }

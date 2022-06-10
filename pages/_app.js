@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     font-family: 'Ubuntu', sans-serif;
+    background: url(/BodyBackground.png) no-repeat center center fixed; 
     color: #242424;
     width: 100vw;
     height: auto;
