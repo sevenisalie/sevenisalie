@@ -3,7 +3,7 @@ import styled from "styled-components"
 import Link from "next/link"
 import { request, gql } from "graphql-request"
 import { animated, useSpring } from "react-spring"
-
+import {dateToHumanReadable} from "../utils/functions"
 import {BsFileEarmarkPostFill, BsArrowRightCircle} from "react-icons/bs"
 
 import BlogPost from "../components/blog/BlogPostCard"
@@ -309,7 +309,7 @@ const Blog = ({ blogPosts }) => {
             <ContentContainer>
                 
                 <ContentTextContainer>
-                    <Link href={`/post/how-i-met-your-mother}`}>
+                    <Link href={`/posts/${featuredPost.slug}`}>
                         <BlogPostCardArticleLink >
                             Read More<BsArrowRightCircle style={{marginLeft: "0.4em"}}/>
                         </BlogPostCardArticleLink>
@@ -319,7 +319,7 @@ const Blog = ({ blogPosts }) => {
                     <ContentText>
                         {featuredPost.summary}
                     </ContentText>
-                    <BlogPostCardDateText style={{fontSize: "1.32em", textAlign: "right"}}>{featuredPost.publishDate}</BlogPostCardDateText>
+                    <BlogPostCardDateText style={{fontSize: "1.32em", textAlign: "right"}}>{dateToHumanReadable(featuredPost.publishDate)}</BlogPostCardDateText>
                 </ContentTextContainer>
                 <HeaderImageOne src={featuredPost.thumbnail.url}></HeaderImageOne>
             </ContentContainer> 

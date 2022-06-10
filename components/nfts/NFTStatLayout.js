@@ -192,9 +192,9 @@ function CollectionCard({ collection, nft, id, style }) {
         <>
         <CollectionItemCard style={style}>
                 <NFTImage src={collection.displayImage.url} />
-                <NFTTitle>{collection.collectionName + ' ' + '#' + nft.id}</NFTTitle>
+                <NFTTitle>{collection.collectionName + ' ' + '#' + nft}</NFTTitle>
             <NFTOwner target="_blank" rel="noreferrer" href={`https://polygonscan.com/address/${'0x395977E98105A96328357f847Edc75333015b8f4'}`}>{`Owner: ${truncateAddress("0x0x395977E98105A96328357f847Edc75333015b8f4", true)}`}</NFTOwner>
-            <a target={"_blank"} rel="noreferrer" href={`https://opensea.io/assets/matic/0x5b5707bd04b74bd624692b75b6f1eeda5f4806ed/${nft.id}`} style={{width: "100%"}}>
+            <a target={"_blank"} rel="noreferrer" href={`https://opensea.io/assets/matic/0x5b5707bd04b74bd624692b75b6f1eeda5f4806ed/${nft}`} style={{width: "100%"}}>
                 <OpenSeaButton
                     style={openSeaAnimeStyle}
                     onMouseEnter={handleButtonTrigger}
