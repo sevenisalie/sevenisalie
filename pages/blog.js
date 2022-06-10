@@ -236,6 +236,11 @@ const AnimeHeader = styled(animated.h2)`
     color: rgba(242, 242, 242, 0.97);
     text-align: right;
     margin-bottom: 0.3em;
+
+    @media (max-width: 508px) {
+        font-size: 5em;
+        margin-top: 1.3em;
+    }
 `
 
 export async function getStaticProps() {
