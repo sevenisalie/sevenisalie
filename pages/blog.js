@@ -21,6 +21,8 @@ const PageContainer = styled.div`
 
 const BlogPageContainer = styled.div`
     display: flex;
+    width: 100%;
+    height: max-content;
     flex-direction: column;
     padding-left: 5em;
     padding-right: 5em;
@@ -80,6 +82,7 @@ const PageTitleText = styled.div`
 
 const ContentContainer = styled.div`
     width: 100%;
+    height-max-content;
     margin-top: 1.4em;
     margin-bottom: 4em;
     display: grid;
@@ -305,6 +308,7 @@ const Blog = ({ blogPosts }) => {
     const featuredPost = blogPosts[0]    
     return (
         <>
+        <BlogPageContainer>
  
             
             <AnimeHeader style={AnimeProps}>Featured Post.</AnimeHeader>
@@ -333,6 +337,7 @@ const Blog = ({ blogPosts }) => {
             
             </BlogPostGridContainer>
         
+        </BlogPageContainer>
         </>
     )
 }
