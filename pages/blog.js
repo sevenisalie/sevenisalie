@@ -234,8 +234,6 @@ const BlogPostCardArticleLink = styled(ContentLink)`
     cursor: pointer;
 `
 const AnimeHeader = styled(animated.h2)`
-    display: flex;
-    flex-wrap: nowrap;
     font-size: 8em;
     font-weight: 400;
     color: rgba(242, 242, 242, 0.97);
@@ -244,7 +242,6 @@ const AnimeHeader = styled(animated.h2)`
 
     @media (max-width: 508px) {
         font-size: 5em;
-        margin-top: 1.3em;
     }
 `
 
