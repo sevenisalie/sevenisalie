@@ -200,6 +200,8 @@ const BlogPostGridContainer = styled.div`
     grid-template-rows: auto; 
     gap: 9em 2.5em; 
     margin-top: 4em;
+    width: 100%;
+    height: max-content;
     @media (max-width: 856px) {
         display: flex;
         flex-direction: column;
@@ -308,7 +310,6 @@ const Blog = ({ blogPosts }) => {
     const featuredPost = blogPosts[0]    
     return (
         <>
-        <BlogPageContainer>
  
             
             <AnimeHeader style={AnimeProps}>Featured Post.</AnimeHeader>
@@ -337,7 +338,6 @@ const Blog = ({ blogPosts }) => {
             
             </BlogPostGridContainer>
         
-        </BlogPageContainer>
         </>
     )
 }
